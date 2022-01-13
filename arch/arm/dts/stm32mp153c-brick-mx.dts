@@ -84,6 +84,51 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
+	leds {
+		compatible = "gpio-leds";
+		ds3_green {
+			label = "ds3:green:online";
+			gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		d4_red {
+			label = "ds4:red:alarm";
+			gpios = <&gpiog 7 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		rly {
+			label = "k1:none:alarm";
+			gpios = <&gpioi 11 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		phy0 {
+			label = "p0:none:phy0";
+			gpios = <&gpiog 3 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		fpga1_nprog {
+			label = "f1:none:nprog1";
+			gpios = <&gpioh 12 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		fpga2_nprog {
+			label = "f2:none:nprog2";
+			gpios = <&gpioi 6 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+		fpga3_nprog {
+			label = "f3:none:nprog3";
+			gpios = <&gpioz 6 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "off";
+			default-state = "off";
+		};
+	};
 	usb_phy_tuning: usb-phy-tuning {
 		st,hs-dc-level = <2>;
 		st,fs-rftime-tuning;
