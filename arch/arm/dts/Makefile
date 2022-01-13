@@ -839,7 +839,7 @@ dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
 #	stm32mp157f-ev1.dtb \
 #	stm32mp15xx-dhcom-pdk2.dtb
 
-dtb-y += stm32mp157c-brick-mx.dtb
+dtb-y += stm32mp153c-brick-mx.dtb
 
 dtb-$(CONFIG_SOC_K3_AM6) += k3-am654-base-board.dtb k3-am654-r5-base-board.dtb
 dtb-$(CONFIG_SOC_K3_J721E) += k3-j721e-common-proc-board.dtb \
