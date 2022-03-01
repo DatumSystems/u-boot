@@ -131,6 +131,8 @@ int checkboard(void)
 		printf(" (%s)", fdt_compat);
 	puts("\n");
 
+	printf("SSBL:  v2.1.1\n");
+
 	if (CONFIG_IS_ENABLED(CMD_STBOARD)) {
 		ret = uclass_get_device_by_driver(UCLASS_MISC,
 						  DM_GET_DRIVER(stm32mp_bsec),
