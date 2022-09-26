@@ -131,7 +131,14 @@ int checkboard(void)
 		printf(" (%s)", fdt_compat);
 	puts("\n");
 
-	printf("SSBL:  v2.1.1\n");
+	/* 
+	 * Versioning for Datum: a.b.c.d-x
+	 * a.b = u-boot (upstream) version
+	 * c.d = STMicro sub-version
+	 * x   = Datum System version
+	 */
+
+	printf("SSBL:  v2020.01.2.2-1\n");
 
 	if (CONFIG_IS_ENABLED(CMD_STBOARD)) {
 		ret = uclass_get_device_by_driver(UCLASS_MISC,
