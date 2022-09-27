@@ -541,7 +541,7 @@ static void setup_boot_mode(void)
  */
 __weak int setup_mac_address(void)
 {
-#if defined(CONFIG_NET)
+//datum #if defined(CONFIG_NET)
 	int ret;
 	int i;
 	u32 otp[2];
@@ -576,7 +576,7 @@ __weak int setup_mac_address(void)
 	if (ret)
 		pr_err("Failed to set mac address %pM from OTP: %d\n",
 		       enetaddr, ret);
-#endif
+//datum #endif
 
 	return 0;
 }
