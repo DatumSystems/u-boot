@@ -138,7 +138,7 @@ int checkboard(void)
 	 * x   = Datum System version
 	 */
 
-	printf("SSBL:  v2020.01.2.2-1\n");
+	printf("SSBL:  v2020.01.2.2-2\n");
 
 	if (CONFIG_IS_ENABLED(CMD_STBOARD)) {
 		ret = uclass_get_device_by_driver(UCLASS_MISC,
