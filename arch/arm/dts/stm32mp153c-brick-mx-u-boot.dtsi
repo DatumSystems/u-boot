@@ -16,10 +16,32 @@
 / {
 
 	/* USER CODE BEGIN root */
+	reserved-memory {
+		u-boot,dm-spl;
+
+		optee@de000000 {
+			u-boot,dm-spl;
+		};
+	};
 	/* USER CODE END root */
 
 }; /*root*/
 
 /* USER CODE BEGIN addons */
+&uart4 {
+	u-boot,dm-pre-reloc;
+};
+
+&uart4_pins_mx {
+	u-boot,dm-pre-reloc;
+	pins1 {
+		u-boot,dm-pre-reloc;
+	};
+	pins2 {
+		u-boot,dm-pre-reloc;
+		/* pull-up on rx to avoid floating level */
+		bias-pull-up;
+	};
+};
 /* USER CODE END addons */
 

@@ -63,6 +63,12 @@
 			no-map;
 		};
 
+		mcu_rsc_table: mcu_rsc_table@10048000 {
+			compatible = "shared-dma-pool";
+			reg = <0x10048000 0x8000>;
+			no-map;
+		};
+
 		mcuram: mcuram@30000000 {
 			compatible = "shared-dma-pool";
 			reg = <0x30000000 0x40000>;
@@ -74,14 +80,23 @@
 			reg = <0x38000000 0x10000>;
 			no-map;
 		};
+
+		optee@de000000 {
+			reg = <0xde000000 0x2000000>;
+			no-map;
+		};
 		/* USER CODE END reserved-memory */
 	};
 
 	/* USER CODE BEGIN root */
 	aliases {
+		ethernet0 = &ethernet0;
 		serial0 = &uart4;
 	};
 	chosen {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
 		stdout-path = "serial0:115200n8";
 	};
 	cpus {
@@ -668,7 +683,7 @@
 	/* spare dmas for other usage */
 	/delete-property/dmas;
 	/delete-property/dma-names;
-	
+
 	ina22@40 {
 		compatible = "ti,ina226";
 		reg = <0x40>;
