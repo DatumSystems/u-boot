@@ -32,7 +32,7 @@ int board_early_init_f(void)
 #ifdef CONFIG_DEBUG_UART_BOARD_INIT
 void board_debug_uart_init(void)
 {
-/* M&7XC uart4 early initialization */
+/* M7XC uart4 early initialization */
 #if (CONFIG_DEBUG_UART_BASE == STM32_UART4_BASE)
 
 #define RCC_MP_APB1ENSETR (STM32_RCC_BASE + 0x0A00)

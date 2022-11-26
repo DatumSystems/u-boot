@@ -952,16 +952,8 @@ void board_init_f(ulong boot_flags)
 	gd->have_console = 0;
 
 	if (initcall_run_list(init_sequence_f))
-	{
-		puts("initcall_run_list()-HANG!!-");
-		putc('\n');
 		hang();
-	}
-	else
-	{
-		puts("initcall_run_list()-OK!!-");
-		putc('\n');
-	}
+
 #if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
 		!defined(CONFIG_EFI_APP) && !CONFIG_IS_ENABLED(X86_64) && \
 		!defined(CONFIG_ARC)
