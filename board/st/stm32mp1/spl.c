@@ -32,6 +32,7 @@ int board_early_init_f(void)
 #ifdef CONFIG_DEBUG_UART_BOARD_INIT
 void board_debug_uart_init(void)
 {
+/* M7XC uart4 early initialization */
 #if (CONFIG_DEBUG_UART_BASE == STM32_UART4_BASE)
 
 #define RCC_MP_APB1ENSETR (STM32_RCC_BASE + 0x0A00)
@@ -40,12 +41,12 @@ void board_debug_uart_init(void)
 	/* UART4 clock enable */
 	setbits_le32(RCC_MP_APB1ENSETR, BIT(16));
 
-#define GPIOG_BASE 0x50008000
-	/* GPIOG clock enable */
-	writel(BIT(6), RCC_MP_AHB4ENSETR);
-	/* GPIO configuration for ST boards: Uart4 TX = G11 */
-	writel(0xffbfffff, GPIOG_BASE + 0x00);
-	writel(0x00006000, GPIOG_BASE + 0x24);
+#define GPIOA_BASE 0x50002000
+	/* GPIOA clock enable */
+	writel(BIT(0), RCC_MP_AHB4ENSETR);
+	/* GPIO configuration for M7XC board: Uart4 TX = A12 */
+	writel(0xfeffffff, GPIOA_BASE + 0x00);
+	writel(0x00060000, GPIOA_BASE + 0x24);
 #else
 
 #error("CONFIG_DEBUG_UART_BASE: not supported value")
