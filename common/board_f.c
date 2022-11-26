@@ -960,8 +960,6 @@ void board_init_f(ulong boot_flags)
 	/* NOTREACHED - jump_to_copy() does not return */
 	hang();
 #endif
-	puts("initcall_run_list()-return-");
-	putc('\n');
 }
 
 #if defined(CONFIG_X86) || defined(CONFIG_ARC)
