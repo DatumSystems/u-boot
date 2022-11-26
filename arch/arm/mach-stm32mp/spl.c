@@ -188,40 +188,30 @@ void board_init_f(ulong dummy)
 {
 	struct udevice *dev;
 	int ret;
-	puts("board_init_f()-entry-");
-	putc('\n');
 
 	arch_cpu_init();
 	mach_cpu_init();
 
 	ret = spl_early_init();
 	if (ret) {
-		puts("spl_early_init()-HANG!!-");
-		putc('\n');
 		log_debug("spl_early_init() failed: %d\n", ret);
 		hang();
 	}
 
 	ret = uclass_get_device(UCLASS_CLK, 0, &dev);
 	if (ret) {
-		puts("uclass_get_device(UCLASS_CLK)-HANG!!-");
-		putc('\n');
 		log_debug("Clock init failed: %d\n", ret);
 		hang();
 	}
 
 	ret = uclass_get_device(UCLASS_RESET, 0, &dev);
 	if (ret) {
-		puts("uclass_get_device(UCLASS_RESET)-HANG!!-");
-		putc('\n');
 		log_debug("Reset init failed: %d\n", ret);
 		hang();
 	}
 
 	ret = uclass_get_device(UCLASS_PINCTRL, 0, &dev);
 	if (ret) {
-		puts("uclass_get_device(UCLASS_PINCTRL)-HANG!!-");
-		putc('\n');
 		log_debug("%s: Cannot find pinctrl device\n", __func__);
 		hang();
 	}
@@ -231,16 +221,12 @@ void board_init_f(ulong dummy)
 
 	ret = board_early_init_f();
 	if (ret) {
-		puts("board_early_init_f()-HANG!!-");
-		putc('\n');
 		log_debug("board_early_init_f() failed: %d\n", ret);
 		hang();
 	}
 
 	ret = uclass_get_device(UCLASS_RAM, 0, &dev);
 	if (ret) {
-		puts("uclass_get_device(UCLASS_RAM)-HANG!!-");
-		putc('\n');
 		log_err("DRAM init failed: %d\n", ret);
 		hang();
 	}

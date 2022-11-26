@@ -209,7 +209,7 @@ static int print_cpuinfo(void)
 
 static int announce_dram_init(void)
 {
-	puts("DRAM:-Datum2-");
+	puts("DRAM:  ");
 	return 0;
 }
 
@@ -231,7 +231,6 @@ static int show_dram_config(void)
 
 	print_size(size, "");
 	board_add_ram_info(0);
-	puts("-Datum2-");
 	putc('\n');
 
 	return 0;
@@ -584,9 +583,6 @@ static int reserve_bloblist(void)
 static int display_new_sp(void)
 {
 	debug("New Stack Pointer is: %08lx\n", gd->start_addr_sp);
-	puts("display_new_sp()-Datum2-");
-	putc('\n');
-
 
 	return 0;
 }
@@ -599,9 +595,6 @@ __weak int arch_setup_bdinfo(void)
 int setup_bdinfo(void)
 {
 	struct bd_info *bd = gd->bd;
-
-	puts("setup_bdinfo()-Datum2-");
-	putc('\n');
 
 	if (IS_ENABLED(CONFIG_SYS_HAS_SRAM)) {
 		bd->bi_sramstart = CONFIG_SYS_SRAM_BASE; /* start of SRAM */
@@ -627,9 +620,6 @@ static int init_post(void)
 
 static int reloc_fdt(void)
 {
-	puts("reloc_fdt()-Datum2-");
-	putc('\n');
-
 	if (!IS_ENABLED(CONFIG_OF_EMBED)) {
 		if (gd->flags & GD_FLG_SKIP_RELOC)
 			return 0;
@@ -645,9 +635,6 @@ static int reloc_fdt(void)
 
 static int reloc_bootstage(void)
 {
-	puts("reloc_bootstage()-Datum2-");
-	putc('\n');
-
 #ifdef CONFIG_BOOTSTAGE
 	if (gd->flags & GD_FLG_SKIP_RELOC)
 		return 0;
@@ -667,9 +654,6 @@ static int reloc_bootstage(void)
 
 static int reloc_bloblist(void)
 {
-	puts("reloc_bloblist()-Datum2-");
-	putc('\n');
-
 #ifdef CONFIG_BLOBLIST
 	if (gd->flags & GD_FLG_SKIP_RELOC)
 		return 0;
@@ -689,9 +673,6 @@ static int reloc_bloblist(void)
 
 static int setup_reloc(void)
 {
-	puts("setup_reloc()-Datum2-");
-	putc('\n');
-
 	if (gd->flags & GD_FLG_SKIP_RELOC) {
 		debug("Skipping relocation due to flag\n");
 		return 0;
@@ -825,8 +806,6 @@ __weak int checkcpu(void)
 
 __weak int clear_bss(void)
 {
-	puts("clear_bss()-Datum2-");
-	putc('\n');
 	return 0;
 }
 
@@ -978,7 +957,7 @@ void board_init_f(ulong boot_flags)
 		putc('\n');
 		hang();
 	}
-	else 
+	else
 	{
 		puts("initcall_run_list()-OK!!-");
 		putc('\n');

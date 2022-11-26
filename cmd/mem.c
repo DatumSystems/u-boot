@@ -1388,7 +1388,7 @@ U_BOOT_CMD(
 static int do_mem_info(struct cmd_tbl *cmdtp, int flag, int argc,
 		       char *const argv[])
 {
-	puts("DRAM:-Datum-");
+	puts("DRAM:  ");
 	print_size(gd->ram_size, "\n");
 
 	return 0;

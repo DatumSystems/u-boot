@@ -23,8 +23,6 @@ static inline int initcall_run_list(const init_fnc_t init_sequence[])
 {
 	const init_fnc_t *init_fnc_ptr;
 
-	puts("ninitcall_run_list()-Datum2-");
-	putc('\n');
 	for (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) {
 		unsigned long reloc_ofs = 0;
 		int ret;
