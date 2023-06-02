@@ -319,8 +319,12 @@ __weak int setup_mac_address(void)
 	struct udevice *dev;
 	int nb_eth, nb_otp, index;
 
-	if (!IS_ENABLED(CONFIG_NET))
-		return 0;
+	/*
+	 * Datum - Recall OTP Ethernet MAC address even if networking not enabled.
+	 *	Used to stop boot at u-boot shell if OTP MAC is not programmed.
+	 */
+	// if (!IS_ENABLED(CONFIG_NET))
+	// 	return 0;
 
 	nb_eth = get_eth_nb();
 
