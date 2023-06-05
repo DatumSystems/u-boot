@@ -70,6 +70,8 @@ enum {
 #define BOOT_INSTANCE_SHIFT	0
 
 enum boot_device {
+	BOOT_TAMP_ACTIVE = 0x00,
+
 	BOOT_FLASH_SD = 0x10,
 	BOOT_FLASH_SD_1 = 0x11,
 	BOOT_FLASH_SD_2 = 0x12,

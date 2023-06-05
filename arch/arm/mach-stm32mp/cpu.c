@@ -209,7 +209,7 @@ static void setup_boot_mode(void)
 	u32 forced_mode = (boot_ctx & TAMP_BOOT_FORCED_MASK);
 	struct udevice *dev;
 
-	log_debug("%s: boot_ctx=0x%x => boot_mode=%x, instance=%d forced=%x\n",
+	printf("%s: boot_ctx=0x%x => boot_mode=%x, instance=%d forced=%x\n",
 		  __func__, boot_ctx, boot_mode, instance, forced_mode);
 	switch (boot_mode & TAMP_BOOT_DEVICE_MASK) {
 	case BOOT_SERIAL_UART:
@@ -246,6 +246,26 @@ static void setup_boot_mode(void)
 		if (instance > ARRAY_SIZE(sdmmc_addr))
 			break;
 		/* search associated sdmmc node in devicetree */
+		sprintf(cmd, "mmc@%x", sdmmc_addr[instance]);
+		if (uclass_get_device_by_name(UCLASS_MMC, cmd, &dev)) {
+			printf("mmc%d = %s not found in device tree!\n",
+			       instance, cmd);
+			break;
+		}
+		sprintf(cmd, "%d", dev_seq(dev));
+		env_set("boot_device", "mmc");
+		env_set("boot_instance", cmd);
+		break;
+	case BOOT_TAMP_ACTIVE:
+		/* FOR TESTING, if TAMP active boot to SDCard (SDMMC1) */
+		boot_mode = BOOT_FLASH_SD_1;
+		instance = 0;
+		forced_mode = 0;
+		/* END TEST */
+		/* If TAMP active, boot to eMMC (SDMMC2) */
+		// boot_mode = BOOT_FLASH_EMMC_2;
+		// instance = 1;
+		// forced_mode = 0;
 		sprintf(cmd, "mmc@%x", sdmmc_addr[instance]);
 		if (uclass_get_device_by_name(UCLASS_MMC, cmd, &dev)) {
 			printf("mmc%d = %s not found in device tree!\n",
@@ -298,9 +318,11 @@ static void setup_boot_mode(void)
 	case BOOT_NORMAL:
 		break;
 	default:
-		log_debug("unexpected forced boot mode = %x\n", forced_mode);
+		log_err("unexpected forced boot mode = %x\n", forced_mode);
 		break;
 	}
+	printf("%s: boot_ctx=0x%x => boot_mode=%x, instance=%d forced=%x\n",
+		  __func__, boot_ctx, boot_mode, instance, forced_mode);
 
 	/* clear TAMP for next reboot */
 	clrsetbits_le32(TAMP_BOOT_CONTEXT, TAMP_BOOT_FORCED_MASK, BOOT_NORMAL);

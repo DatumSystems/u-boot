@@ -25,6 +25,7 @@ static int scmi_clk_get_num_clock(struct udevice *dev, size_t *num_clocks)
 	};
 	int ret;
 
+	printf("DBG: scmi_clk_get_num_clock()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret)
 		return ret;
@@ -50,6 +51,7 @@ static int scmi_clk_get_attibute(struct udevice *dev, int clkid, char **name)
 	};
 	int ret;
 
+	printf("DBG: scmi_clk_get_attibute()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret)
 		return ret;
@@ -73,6 +75,7 @@ static int scmi_clk_gate(struct clk *clk, int enable)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_clk_gate()\n\r");
 	ret = devm_scmi_process_msg(clk->dev, &msg);
 	if (ret)
 		return ret;
@@ -101,6 +104,7 @@ static ulong scmi_clk_get_rate(struct clk *clk)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_clk_get_rate()\n\r");
 	ret = devm_scmi_process_msg(clk->dev, &msg);
 	if (ret < 0)
 		return ret;
@@ -126,6 +130,7 @@ static ulong scmi_clk_set_rate(struct clk *clk, ulong rate)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_clk_set_rate()\n\r");
 	ret = devm_scmi_process_msg(clk->dev, &msg);
 	if (ret < 0)
 		return ret;

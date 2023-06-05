@@ -26,6 +26,7 @@ static int scmi_reset_set_level(struct reset_ctl *rst, bool assert_not_deassert)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_reset_set_level\n\r");
 	ret = devm_scmi_process_msg(rst->dev, &msg);
 	if (ret)
 		return ret;

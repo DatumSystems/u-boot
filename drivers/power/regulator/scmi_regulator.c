@@ -51,6 +51,7 @@ static int scmi_voltd_set_enable(struct udevice *dev, bool enable)
 			return ret;
 	}
 
+	printf("DBG: scmi_voltd_set_enable()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret)
 		return ret;
@@ -74,6 +75,7 @@ static int scmi_voltd_get_enable(struct udevice *dev)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_voltd_get_enable()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret < 0)
 		return ret;
@@ -98,6 +100,7 @@ static int scmi_voltd_set_voltage_level(struct udevice *dev, int uV)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_voltd_set_voltage_level()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret < 0)
 		return ret;
@@ -117,6 +120,7 @@ static int scmi_voltd_get_voltage_level(struct udevice *dev)
 					  in, out);
 	int ret;
 
+	printf("DBG: scmi_voltd_get_voltage_level()\n\r");
 	ret = devm_scmi_process_msg(dev, &msg);
 	if (ret < 0)
 		return ret;
@@ -171,6 +175,7 @@ static int voltd_count(struct udevice *dev, size_t *count)
 	};
 	int ret;
 
+	printf("DBG: voltd_count()\n\r");
 	ret = devm_scmi_process_msg(dev, &scmi_msg);
 	if (ret < 0)
 		return ret;
@@ -204,6 +209,7 @@ static int voltd_name_to_domain_id(struct udevice *dev,
 		in.domain_id = n;
 		scmi_msg.out_msg_sz = sizeof(out);
 
+		printf("DBG: voltd_name_to_domain_id(n=%d)\n\r",n);
 		ret = devm_scmi_process_msg(dev, &scmi_msg);
 		if (!ret && voltd_name_is_valid(out.name) &&
 		    !strcmp(pdata->voltd_name, out.name)) {
@@ -240,7 +246,8 @@ static int scmi_regulator_probe(struct udevice *dev)
 	/* Check voltage domain is known from SCMI server */
 	in.domain_id = pdata->domain_id;
 
-	ret = devm_scmi_process_msg(dev, &scmi_msg);
+	printf("DBG: voltd_count()\n\r");
+	ret = scmi_regulator_probe(dev, &scmi_msg);
 	if (ret) {
 		dev_err(dev, "Failed to query voltage domain %u: %d\n",
 			pdata->domain_id, ret);
