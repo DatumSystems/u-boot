@@ -175,7 +175,7 @@ int stm32_omi_dlyb_set_cr(struct udevice *dev, u32 dlyb_cr)
 {
 	bool bypass_mode = false;
 	int ret;
-	u16 period_ps;
+	u32 period_ps;
 	u8 rx_tap, tx_tap;
 
 	period_ps = FIELD_GET(DLYBOS_BYP_CMD_MASK, dlyb_cr);
@@ -210,9 +210,9 @@ static const u16 dlybos_delay_ps[STM32_DLYBOS_DELAY_NB] = {
 22336, 23968, 25568, 27168, 28768, 30400, 32000, 33600, 35232, 36832, 38432, 40032
 };
 
-static u32 stm32_omi_find_byp_cmd(u16 period_ps)
+static u32 stm32_omi_find_byp_cmd(u32 period_ps)
 {
-	u16 half_period_ps = period_ps / 2;
+	u32 half_period_ps = period_ps / 2;
 	u8 max = STM32_DLYBOS_DELAY_NB - 1;
 	u8 i, min = 0;
 
@@ -249,7 +249,7 @@ void stm32_omi_dlyb_stop(struct udevice *dev)
 }
 
 int stm32_omi_dlyb_configure(struct udevice *dev,
-			     bool bypass_mode, u16 period_ps)
+			     bool bypass_mode, u32 period_ps)
 {
 	struct stm32_omi_plat *omi_plat = dev_get_plat(dev);
 	u32 sr, mask, val;
@@ -298,7 +298,6 @@ static void stm32_omi_read_fifo(void *val, phys_addr_t addr, u8 len)
 	case sizeof(u8):
 		*((u8 *)val) = readb_relaxed(addr);
 	};
-	schedule();
 }
 
 static void stm32_omi_write_fifo(void *val, phys_addr_t addr, u8 len)
@@ -358,6 +357,9 @@ int stm32_omi_tx_poll(struct udevice *dev, void *buf, u32 len, bool read)
 		fifo(buf, regs_base + OSPI_DR, step);
 		len -= step;
 		buf += step;
+
+		if (!(len % SZ_1M))
+			schedule();
 	}
 
 	return 0;
